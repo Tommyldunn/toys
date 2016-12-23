@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+egrep -nR $1 $2 | awk -f ~/.toys/current/scripts/format_grep.awk -v term=$1
+

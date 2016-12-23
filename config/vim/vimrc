@@ -1,0 +1,145 @@
+filetype off
+set nofoldenable
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-surround'
+Plug 'plasticboy/vim-markdown'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'itchyny/lightline.vim'
+Plug 'ervandew/supertab'
+Plug 'roman/golden-ratio'
+Plug 'scrooloose/syntastic'
+Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
+Plug 'kchmck/vim-coffee-script'
+Plug 'neomake/neomake'
+Plug 'scrooloose/nerdcommenter'
+
+call plug#end()
+
+set hidden
+set incsearch
+set hlsearch
+let g:racer_cmd = "/Users/kamil/.cargo/bin/racer"
+
+set completeopt=menuone,menu,longest
+set wildignore+=*\\tmp\\*,*.swp,*.swo,*.zip,.git,.cabal-sandbox
+set wildmode=longest,list,full
+set wildmenu
+set completeopt+=longest
+
+set statusline+=%#warningmsg#
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" == supertab ==
+
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = "<c-p>"
+let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
+let g:SuperTabContextDiscoverDiscovery = ["&omnifunc:<c-x><c-o>"]
+" Problem with load order (vimrc is evaluated before latex-box setting of omnifunc)
+" \ verbose set omnifunc? | " is empty
+" added this autocommand to after/ftplugin/tex.vim
+" :do FileType solves also the problem
+autocmd FileType * 
+      \ if &omnifunc != '' |
+      \ call SuperTabChain(&omnifunc, "<c-p>") |
+      \ call SuperTabSetDefaultCompletionType("<c-x><c-u>") |
+      \ endif
+
+
+set ofu=syntaxcomplete#Complete
+
+if has("gui_running")
+  imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+else " no gui
+  if has("unix")
+    inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+  endif
+endif
+
+filetype plugin indent on
+set number
+set nu ts=2 sw=2 et shiftround ignorecase smartcase
+syntax enable
+set background=dark
+
+highlight LineNr ctermfg=grey
+highlight LineNr ctermbg=black
+
+:set backspace=indent,eol,start
+
+let g:lightline = {
+      \ 'colorscheme': 'powerline',
+      \ 'component': {
+      \   'readonly': '%{&readonly?"x":""}',
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '|', 'right': '|' }
+      \ }
+
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+
+if !has('gui_running')
+    set t_Co=256
+endif
+
+augroup NeomakeRust
+  autocmd!
+  autocmd! BufWritePost *.rs Neomake
+augroup END
+
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set norelativenumber
+  else
+    set relativenumber
+  endif
+endfunc
+
+let mapleader = "\<Space>"
+nnoremap <Leader>o :CtrlP<CR>
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>- :sp<CR>
+nnoremap <Leader>\ :vsp<CR>
+nnoremap <Leader>k <C-w><Up><CR>
+nnoremap <Leader>j <C-w><Down><CR>
+nnoremap <Leader>l <C-w><Right><CR>
+nnoremap <Leader>h <C-w><Left><CR>
+nnoremap <Leader>b :b #<CR>
+nnoremap <Leader>t :TagbarToggle<CR>
+nnoremap <Leader>q :q<CR>
+nnoremap <Leader>Q :q!<CR>
+nmap <Leader><Leader> V
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+inoremap jj <Esc>
+nnoremap ff :noh <CR>
+inoremap <esc>   <NOP>
+inoremap <Left>  <NOP>
+inoremap <Right> <NOP>
+inoremap <Up>    <NOP>
+inoremap <Down>  <NOP>
+nnoremap <Left>  <NOP>
+nnoremap <Right> <NOP>
+nnoremap <Up>    <NOP>
+nnoremap <Down>  <NOP>
+nnoremap <Tab> V >
+nnoremap <S-Tab> V <
+vnoremap <Tab> >
+vnoremap <S-Tab> <
+nnoremap <Leader>n :call NumberToggle()<cr>
+
+
