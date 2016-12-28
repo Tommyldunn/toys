@@ -19,13 +19,13 @@ BEGIN {
   {
     print gray " ¦ " nc
   }
-  out=$0
-  gsub($1 ":" $2 ":", "", out)
-  gsub($1 "-" $2 "-", "", out)
+  line=$2
   if($2 > ln && $2 != lastn)
   {
-    print $2 ":" out
+    $1=""
+    $2=""
+    print line ":" $0
   }
-  ln=$2
+  ln=line
   lastn=ln
 }
