@@ -19,13 +19,13 @@ BEGIN {
   {
     print gray " ¦ " nc
   }
-  line=$2
   if($2 > ln && $2 != lastn)
   {
     $1=""
-    $2=""
-    print line ":" $0
+    out=$0
+    $2 = $2 ":"
+    print $0
   }
-  ln=line
+  ln=$2
   lastn=ln
 }
