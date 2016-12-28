@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-egrep -nR $1 $2 | awk -f ~/.toys/scripts/format_grep.awk -v term=$1
+GREP_COLOR='01;33' egrep -nR --color=always $@ | awk -f ~/.toys/scripts/format_grep.awk | uniq
 
