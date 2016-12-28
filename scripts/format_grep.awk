@@ -9,7 +9,7 @@ BEGIN {
   nc="\033[0m"
 }
 
-/(:|-)[0-9]+(:|-)/ { 
+!/(--|Binary)/ { 
   if($1 != file)
   { file=$1
     print "\n" red $1 ":" nc
