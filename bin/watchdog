@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+OPTIND=1
+
+extension="*.*"
+command="echo {}"
+directory="."
+
+while getopts "e:c:d:" opt; do
+  case "$opt" in
+    e)
+      extension=$OPTARG
+      ;;
+    c)
+      command=$OPTARG
+      ;;
+    d)
+      directory=$OPTARG
+      ;;
+  esac
+done
+
+shift $((OPTIND-1))
+
+while sleep 1; do find $directory -name $extension -mtime 1s -exec $command \; ; done
+
