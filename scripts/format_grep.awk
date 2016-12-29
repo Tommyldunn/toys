@@ -29,11 +29,8 @@ BEGIN {
   gsub(pattern1, "", out)
   gsub(pattern2, "", out)
   line=$2
-  if($2 > ln && $2 != lastn)
-  {
-    print $2 ":" out
-    filestarted=1
-  }
+  print $2 ":" out
+  filestarted=1
   ln=$2
   lastn=ln
 }
