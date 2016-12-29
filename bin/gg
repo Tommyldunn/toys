@@ -1,4 +1,43 @@
 #!/usr/bin/env bash
 
-GREP_COLOR='01;33' egrep -nR --color=always $@ | sed 's/-\([[:digit:]]*\)-/:\1:/g' | awk -f ~/.toys/scripts/format_grep.awk | uniq
+OPTIND=1
+
+before=0
+after=0
+context=0
+
+while getopts "B:A:C:" opt; do
+  case "$opt" in
+    B)
+      before=$OPTARG
+      ;;
+    A)
+      after=$OPTARG
+      ;;
+    C)
+      context=$OPTARG
+      ;;
+  esac
+done
+
+shift $((OPTIND-1))
+
+argument=""
+
+if [ $after -gt 0 ]
+then
+  argument="$argument -A $after"
+fi
+
+if [ $before -gt 0 ]
+then
+  argument="$argument -B $before"
+fi
+
+if [ $context -gt 0 ]
+then
+  argument="$argument -C $context"
+fi
+
+egrep -nR $argument --color=never "$1" $2 | sed 's/-\([[:digit:]]*\)-/:\1:/g' | sed "s/\($1\)/#FOUND#\1#!FOUND#/g" | awk -f ~/.toys/scripts/format_grep.awk | uniq
 
