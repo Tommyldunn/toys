@@ -24,8 +24,8 @@ BEGIN {
   out=$0
   pattern1=$1 ":" $2 ":"
   pattern2=$1 "-" $2 "-"
-  gsub(/\\0[^m]+m/, "", pattern1)
-  gsub(/\\0[^m]+m/, "", pattern2)
+  gsub(/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]/, "", pattern1)
+  gsub(/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]/, "", pattern2)
   gsub(pattern1, "", out)
   gsub(pattern2, "", out)
   line=$2
