@@ -6,6 +6,7 @@ BEGIN {
   red="\033[0;31m"
   gray="\033[0;90m"
   darkgraybg="\033[0;100m"
+  darkgraybg2="\033[95;100m"
   nc="\033[0m"
 }
 
@@ -18,12 +19,13 @@ BEGIN {
   }
   if($2 > ln + 1 && filestarted != 0)
   {
-    print gray " ¦ " nc
+    linum=sprintf("%-5s", ":")
+    print darkgraybg2 " " linum nc
   }
   out=substr($0, length($1 ":" $2 ": "))
   if($2 >= ln && $2 != "")
   {
-    linum=sprintf("%-6s", $2)
+    linum=sprintf("%-4s", $2)
     print darkgraybg " " linum " " nc " " out
     filestarted=1
     ln=$2
