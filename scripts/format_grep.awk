@@ -22,8 +22,12 @@ BEGIN {
     print gray " ¦ " nc
   }
   out=$0
-  gsub($1 ":" $2 ":", "", out)
-  gsub($1 "-" $2 "-", "", out)
+  pattern1=$1 ":" $2 ":"
+  pattern2=$1 "-" $2 "-"
+  gsub(/\\0[^m]+m/, "", pattern1)
+  gsub(/\\0[^m]+m/, "", pattern2)
+  gsub(pattern1, "", out)
+  gsub(pattern2, "", out)
   line=$2
   if($2 > ln && $2 != lastn)
   {
