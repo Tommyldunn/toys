@@ -20,7 +20,7 @@ BEGIN {
   }
   if($2 > ln + 1 && filestarted != 0)
   {
-    linum=sprintf("%-5s", ":")
+    linum=sprintf("%-7s", "⁞")
     print darkgraybg2 " " linum nc
   }
   out=substr($0, length($1 ":" $2 ": "))
