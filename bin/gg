@@ -39,5 +39,5 @@ then
   argument="$argument -C $context"
 fi
 
-egrep -nR $argument --color=never "$1" $2 | sed 's/-\([[:digit:]]*\)-/:\1:/g' | sed "s/\($1\)/#FOUND#\1#!FOUND#/g" | awk -f ~/.toys/scripts/format_grep.awk | uniq
+egrep -nR $argument --exclude-dir ".git" --color=never "$1" $2 | sed 's/-\([[:digit:]]*\)-/:\1:/g' | sed "s/\($1\)/#FOUND#\1#!FOUND#/g" | awk -f ~/.toys/scripts/format_grep.awk | uniq
 
