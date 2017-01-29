@@ -3,7 +3,7 @@ set nofoldenable
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-surround'
 Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-endwise'
@@ -17,6 +17,9 @@ Plug 'racer-rust/vim-racer'
 Plug 'kchmck/vim-coffee-script'
 Plug 'neomake/neomake'
 Plug 'scrooloose/nerdcommenter'
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'scrooloose/nerdtree'
+Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
@@ -110,7 +113,7 @@ function! NumberToggle()
 endfunc
 
 let mapleader = "\<Space>"
-nnoremap <Leader>o :CtrlP<CR>
+nnoremap <Leader>o :CtrlPMixed<CR>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>- :sp<CR>
 nnoremap <Leader>\ :vsp<CR>
@@ -119,6 +122,7 @@ nnoremap <Leader>j <C-w><Down><CR>
 nnoremap <Leader>l <C-w><Right><CR>
 nnoremap <Leader>h <C-w><Left><CR>
 nnoremap <Leader>b :b #<CR>
+nnoremap <Leader>f :NERDTreeFind<CR>
 nnoremap <Leader>t :TagbarToggle<CR>
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>Q :q!<CR>
@@ -127,15 +131,6 @@ vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 inoremap jj <Esc>
 nnoremap ff :noh <CR>
-inoremap <esc>   <NOP>
-inoremap <Left>  <NOP>
-inoremap <Right> <NOP>
-inoremap <Up>    <NOP>
-inoremap <Down>  <NOP>
-nnoremap <Left>  <NOP>
-nnoremap <Right> <NOP>
-nnoremap <Up>    <NOP>
-nnoremap <Down>  <NOP>
 nnoremap <Tab> V >
 nnoremap <S-Tab> V <
 vnoremap <Tab> >
