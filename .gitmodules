@@ -1,3 +1,6 @@
 [submodule "config/tmux/tpm"]
 	path = config/tmux/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule "tools/notes"]
+	path = tools/notes
+	url = https://github.com/pimterry/notes

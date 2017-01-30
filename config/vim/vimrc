@@ -20,6 +20,9 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'scrooloose/nerdtree'
 Plug 'airblade/vim-gitgutter'
+Plug 'godlygeek/tabular'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 
 call plug#end()
 
@@ -68,6 +71,16 @@ else " no gui
     inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
   endif
 endif
+
+function! DistractionFreeWriting()
+  GoldenRatioToggle
+  Goyo
+  set linebreak
+endfunction
+
+command DistractionFree call DistractionFreeWriting()
+
+let g:limelight_conceal_ctermfg = 'DarkGray'
 
 filetype plugin indent on
 set number
@@ -131,6 +144,7 @@ vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 inoremap jj <Esc>
 nnoremap ff :noh <CR>
+nnoremap \\ :Limelight!! <CR>
 nnoremap <Tab> V >
 nnoremap <S-Tab> V <
 vnoremap <Tab> >
