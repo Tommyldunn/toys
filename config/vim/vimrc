@@ -29,6 +29,7 @@ Plug 'junegunn/limelight.vim'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'gregsexton/gitv'
 Plug 'dbext.vim'
+Plug 'lifepillar/pgsql.vim'
 
 call plug#end()
 
