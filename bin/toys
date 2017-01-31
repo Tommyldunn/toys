@@ -6,6 +6,8 @@ RETVAL=0
 update() {
   cd ~/.toys
   git pull origin master
+  git submodule update --init --recursive
+  git pull --recurse-submodules
   source ~/.bash_profile
 }
 
