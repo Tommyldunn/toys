@@ -20,8 +20,8 @@ BEGIN {
   }
   if($2 > ln + 1 && filestarted != 0)
   {
-    linum=sprintf("%-7s", "⁞")
-    print darkgraybg2 " " linum nc
+    linum=sprintf("%-7s", ":")
+    print gray " " linum nc
   }
   out=substr($0, length($1 ":" $2 ": "))
   gsub(/#FOUND#/, yellow, out)
@@ -29,7 +29,7 @@ BEGIN {
   if($2 >= ln && $2 != "")
   {
     linum=sprintf("%-4s", $2)
-    print darkgraybg " " linum " " nc " " out
+    print gray " " linum " " nc "   " out
     filestarted=1
     ln=$2
   }
