@@ -1,6 +1,9 @@
 filetype off
 set nofoldenable
 
+set path+=**
+set wildmenu
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'ctrlpvim/ctrlp.vim'
@@ -23,6 +26,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'godlygeek/tabular'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
+Plug 'dhruvasagar/vim-table-mode'
 
 call plug#end()
 
@@ -81,6 +85,8 @@ endfunction
 command DistractionFree call DistractionFreeWriting()
 
 let g:limelight_conceal_ctermfg = 'DarkGray'
+
+let g:table_mode_corner="|"
 
 filetype plugin indent on
 set number
