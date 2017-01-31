@@ -27,10 +27,12 @@ Plug 'godlygeek/tabular'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'dhruvasagar/vim-table-mode'
-Plug 'metakirby5/codi.vim'
 Plug 'gregsexton/gitv'
+Plug 'dbext.vim'
 
 call plug#end()
+
+au BufNewFile,BufRead *.note set filetype=outlaw
 
 set hidden
 set incsearch
@@ -160,3 +162,8 @@ vnoremap <S-Tab> <
 nnoremap <Leader>n :call NumberToggle()<cr>
 
 autocmd FileType markdown nnoremap <Leader>x :,,s/\[ \]/[*]/g<cr>:noh<cr>f[l
+
+let g:outlaw_fenced_tag = '\`\`\`'
+let g:outlaw_topic_mark =
+  \  '\(\* \|\[x\] \|\[ ] \|\[-] \|\[#] \)'
+let g:outlaw_note_indent = 1
