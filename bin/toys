@@ -1,0 +1,20 @@
+#!/bin/bash
+
+prog="toys"
+RETVAL=0
+
+update() {
+  cd ~/.toys
+  git pull origin master
+  source ~/.bash_profile
+}
+
+case "$1" in
+    update)
+        update
+        ;;
+    *)
+        echo $"Usage: $prog {update}"
+esac
+
+exit $RETVAL

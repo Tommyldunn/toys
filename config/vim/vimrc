@@ -151,4 +151,4 @@ vnoremap <Tab> >
 vnoremap <S-Tab> <
 nnoremap <Leader>n :call NumberToggle()<cr>
 
-
+autocmd FileType markdown nnoremap <Leader>x :,,s/\[ \]/[*]/g<cr>:noh<cr>f[l
