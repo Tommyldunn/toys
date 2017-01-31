@@ -16,4 +16,4 @@ if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
 fi
 
 source ~/.toys/config/bash/completions/ssh
-source ~/.toys/config/bash/completions/notes.bash_completion
+source ~/.toys/tools/notes/notes.bash_completion
