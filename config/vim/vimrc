@@ -30,6 +30,18 @@ Plug 'dhruvasagar/vim-table-mode'
 Plug 'gregsexton/gitv'
 Plug 'dbext.vim'
 Plug 'lifepillar/pgsql.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-bundler'
+Plug 'thoughtbot/vim-rspec'
+Plug 'webdevel/tabulous'
+Plug 'ap/vim-css-color'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'thinca/vim-quickrun'
+Plug 'terryma/vim-expand-region'
+Plug 'haya14busa/incsearch.vim'
+Plug 'nelstrom/vim-markdown-folding'
 
 call plug#end()
 
@@ -164,7 +176,9 @@ nnoremap <Leader>n :call NumberToggle()<cr>
 
 autocmd FileType markdown nnoremap <Leader>x :,,s/\[ \]/[*]/g<cr>:noh<cr>f[l
 
-let g:outlaw_fenced_tag = '\`\`\`'
-let g:outlaw_topic_mark =
-  \  '\(\* \|\[x\] \|\[ ] \|\[-] \|\[#] \)'
-let g:outlaw_note_indent = 1
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
