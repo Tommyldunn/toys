@@ -41,7 +41,6 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'thinca/vim-quickrun'
 Plug 'terryma/vim-expand-region'
 Plug 'haya14busa/incsearch.vim'
-Plug 'nelstrom/vim-markdown-folding'
 
 call plug#end()
 
@@ -60,6 +59,8 @@ set completeopt+=longest
 
 set statusline+=%#warningmsg#
 set statusline+=%*
+
+" colorscheme railscasts
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -182,3 +183,11 @@ inoremap <A-j> <Esc>:m .+1<CR>==gi
 inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
+
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
+hi Normal                    ctermfg=254 ctermbg=234
+hi LineNr                    ctermfg=242 ctermbg=233
+hi VertSplit                 ctermfg=233 ctermbg=233 cterm=NONE
