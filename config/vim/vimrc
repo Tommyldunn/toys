@@ -41,6 +41,10 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'thinca/vim-quickrun'
 Plug 'terryma/vim-expand-region'
 Plug 'haya14busa/incsearch.vim'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
+Plug 'marcweber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
 
 call plug#end()
 
