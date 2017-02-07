@@ -45,6 +45,9 @@ Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
+Plug 'davidoc/taskpaper.vim'
+Plug 'chrisbra/NrrwRgn'
+Plug 'ahw/vim-pbcopy'
 
 call plug#end()
 
@@ -64,51 +67,21 @@ set completeopt+=longest
 set statusline+=%#warningmsg#
 set statusline+=%*
 
-" colorscheme railscasts
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-" == supertab ==
-
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabContextDefaultCompletionType = "<c-p>"
-let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
-let g:SuperTabContextDiscoverDiscovery = ["&omnifunc:<c-x><c-o>"]
-" Problem with load order (vimrc is evaluated before latex-box setting of omnifunc)
-" \ verbose set omnifunc? | " is empty
-" added this autocommand to after/ftplugin/tex.vim
-" :do FileType solves also the problem
-autocmd FileType * 
-      \ if &omnifunc != '' |
-      \ call SuperTabChain(&omnifunc, "<c-p>") |
-      \ call SuperTabSetDefaultCompletionType("<c-x><c-u>") |
-      \ endif
-
-
 set ofu=syntaxcomplete#Complete
-
-if has("gui_running")
-  imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-else " no gui
-  if has("unix")
-    inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-  endif
-endif
 
 function! DistractionFreeWriting()
   GoldenRatioToggle
   Goyo
-  set linebreak
+  " set linebreak
 endfunction
-
 command DistractionFree call DistractionFreeWriting()
 
 let g:limelight_conceal_ctermfg = 'DarkGray'
-
-let g:table_mode_corner="|"
 
 filetype plugin indent on
 set number
@@ -173,13 +146,13 @@ vmap <C-v> <Plug>(expand_region_shrink)
 inoremap jj <Esc>
 nnoremap ff :noh <CR>
 nnoremap \\ :Limelight!! <CR>
-nnoremap <Tab> V >
-nnoremap <S-Tab> V <
-vnoremap <Tab> >
-vnoremap <S-Tab> <
+"nnoremap <Tab> V >
+"nnoremap <S-Tab> V <
+"vnoremap <Tab> >
+"vnoremap <S-Tab> <
 nnoremap <Leader>n :call NumberToggle()<cr>
 
-autocmd FileType markdown nnoremap <Leader>x :,,s/\[ \]/[*]/g<cr>:noh<cr>f[l
+autocmd FileType markdown nnoremap <Leader>x :,,s/\[ \]/[x]/g<cr>:noh<cr>f[l
 
 nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
@@ -195,3 +168,4 @@ map g/ <Plug>(incsearch-stay)
 hi Normal                    ctermfg=254 ctermbg=234
 hi LineNr                    ctermfg=242 ctermbg=233
 hi VertSplit                 ctermfg=233 ctermbg=233 cterm=NONE
+hi Folded ctermfg=248 ctermbg=236

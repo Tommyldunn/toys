@@ -1,0 +1,3 @@
+#!/bin/bash -l
+
+git config --global alias.graph 'log --graph --decorate'
