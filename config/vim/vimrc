@@ -12,7 +12,6 @@ Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'itchyny/lightline.vim'
-Plug 'ervandew/supertab'
 Plug 'roman/golden-ratio'
 Plug 'scrooloose/syntastic'
 Plug 'rust-lang/rust.vim'
@@ -21,7 +20,6 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'neomake/neomake'
 Plug 'scrooloose/nerdcommenter'
 Plug 'MattesGroeger/vim-bookmarks'
-Plug 'scrooloose/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'godlygeek/tabular'
 Plug 'junegunn/goyo.vim'
@@ -41,13 +39,18 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'thinca/vim-quickrun'
 Plug 'terryma/vim-expand-region'
 Plug 'haya14busa/incsearch.vim'
-Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'davidoc/taskpaper.vim'
 Plug 'chrisbra/NrrwRgn'
 Plug 'ahw/vim-pbcopy'
+Plug 'panozzaj/vim-autocorrect'
+Plug 'reedes/vim-wordy'
+Plug 'reedes/vim-wheel'
+Plug 'garbas/vim-snipmate'
+Plug 'jceb/vim-orgmode'
+Plug 'tpope/vim-speeddating'
 
 call plug#end()
 
@@ -66,6 +69,11 @@ set completeopt+=longest
 
 set statusline+=%#warningmsg#
 set statusline+=%*
+
+" Netrw
+let g:netrw_liststyle = 3
+let g:netrw_banner = 0
+let g:netrw_browse_split = 4
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -126,6 +134,8 @@ function! NumberToggle()
   endif
 endfunc
 
+let g:org_agenda_files = ['~/.notes/*.org']
+
 let mapleader = "\<Space>"
 nnoremap <Leader>o :CtrlPMixed<CR>
 nnoremap <Leader>w :w<CR>
@@ -146,10 +156,6 @@ vmap <C-v> <Plug>(expand_region_shrink)
 inoremap jj <Esc>
 nnoremap ff :noh <CR>
 nnoremap \\ :Limelight!! <CR>
-"nnoremap <Tab> V >
-"nnoremap <S-Tab> V <
-"vnoremap <Tab> >
-"vnoremap <S-Tab> <
 nnoremap <Leader>n :call NumberToggle()<cr>
 
 autocmd FileType markdown nnoremap <Leader>x :,,s/\[ \]/[x]/g<cr>:noh<cr>f[l
