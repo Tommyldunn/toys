@@ -19,3 +19,5 @@ source ~/.toys/config/bash/completions/ssh
 source ~/.toys/tools/notes/notes.bash_completion
 
 git config --global alias.graph 'log --graph --decorate'
+
+alias fixssh='export $(tmux showenv SSH_AUTH_SOCK)'
