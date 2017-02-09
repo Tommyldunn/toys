@@ -51,10 +51,18 @@ Plug 'reedes/vim-wheel'
 Plug 'garbas/vim-snipmate'
 Plug 'jceb/vim-orgmode'
 Plug 'tpope/vim-speeddating'
+Plug 'vimwiki/vimwiki'
+Plug 'tbabej/taskwiki'
+Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'majutsushi/tagbar'
+Plug 'farseer90718/vim-taskwarrior'
+Plug 'mhinz/vim-startify'
 
 call plug#end()
 
 au BufNewFile,BufRead *.note set filetype=outlaw
+
+let g:vimwiki_list = [{'path': '~/.notes/', 'path_html': '~/.notes/html/'}]
 
 set hidden
 set incsearch
