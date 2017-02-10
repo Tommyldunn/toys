@@ -55,13 +55,16 @@ Plug 'panozzaj/vim-autocorrect'
 Plug 'reedes/vim-wordy'
 Plug 'reedes/vim-wheel'
 Plug 'garbas/vim-snipmate'
-Plug 'jceb/vim-orgmode'
 Plug 'tpope/vim-speeddating'
 Plug 'vimwiki/vimwiki'
-Plug 'tbabej/taskwiki'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'majutsushi/tagbar'
-Plug 'farseer90718/vim-taskwarrior'
+
+if executable('task')
+  Plug 'farseer90718/vim-taskwarrior'
+  Plug 'tbabej/taskwiki'
+endif
+
 Plug 'mhinz/vim-startify'
 Plug 'rhysd/vim-grammarous'
 Plug 'jreybert/vimagit'
