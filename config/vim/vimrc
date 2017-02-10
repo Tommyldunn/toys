@@ -13,7 +13,13 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'itchyny/lightline.vim'
 Plug 'roman/golden-ratio'
-Plug 'w0rp/ale'
+
+if v:version >= 800
+  Plug 'w0rp/ale'
+else
+  Plug 'vim-syntastic/syntastic'
+endif
+
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 Plug 'kchmck/vim-coffee-script'
@@ -97,6 +103,7 @@ function! DistractionFreeWriting()
   Goyo
   " set linebreak
 endfunction
+let g:distraction_free_defined = 1
 command DistractionFree call DistractionFreeWriting()
 
 let g:limelight_conceal_ctermfg = 'DarkGray'

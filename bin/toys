@@ -9,6 +9,7 @@ update() {
   git submodule update --init --recursive
   git pull --recurse-submodules
   source ~/.bash_profile
+  vim +PlugClean! +PlugInstall +qa!
 }
 
 case "$1" in
