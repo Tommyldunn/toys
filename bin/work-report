@@ -1,3 +1,13 @@
 #!/bin/bash -l
 
-task completed | grep $1 | awk -F' ' '{ print $2 }' | xargs -I '{}' grep -nR {} ~/.notes/*.wiki | awk -F: '{ print $1 ":" sprintf("%09s", $2) ":" $3 }' | sort | awk -F: 'BEGIN { header="" } { if($1 != header) { header = $1; print ""; print $1 ":"; } }; /X|.|o|O|S/ { print $3 }' | sed 's/\[X\]//g' | sed 's/#.*$//g' | sed 's/\*/-/g' | sed 's/  / /g' | sed 's/!//g' | sed 's/([0-9]*-[0-9]*-[0-9]*)//g' | sed 's/(\[\[//g'
+date=""
+if [ -z $1 ]; then
+  date=`date "+%Y-%m-%d"`
+else
+  date=$1
+fi
+
+echo ""
+echo "Work report for ($date)":
+
+task completed 2>/dev/null | grep $date | awk -F' ' '{ print $2 }' | xargs -I '{}' grep -nR {} ~/.notes/*.wiki | awk -F: '{ print $1 ":" sprintf("%09s", $2) ":" $3 }' | sort | awk -F: 'BEGIN { header=""; red="\033[0;31m"; nc="\033[0m" } { if($1 != header) { header = $1; print ""; _len = split($1, name, "/"); gsub(/.wiki/, "", name[_len]); print red name[_len] ":" nc; } }; /X|.|o|O|S/ { print $3 }' | sed 's/\[X\]//g' | sed 's/#.*$//g' | sed 's/\*/-/g' | sed 's/  / /g' | sed 's/!//g' | sed 's/([0-9]*-[0-9]*-[0-9]*)//g' | sed 's/(\[\[//g'

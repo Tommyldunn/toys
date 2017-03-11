@@ -1,3 +1,3 @@
 #!/bin/bash
 
-curl wttr.in/swidnik
+curl wttr.in/swidnik?lang=pl

@@ -2,6 +2,6 @@
 [user]
 # Please adapt and uncomment the following lines:
 	name = Kamil Ciemniewski
-	email = ciemniewski.kamil@gmail.com
+	email = kamil@ciemniew.ski
 [alias]
 	graph = log --graph --decorate

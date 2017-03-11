@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+clippings = File.read("#{ENV['HOME']}/.toys/kindle/clippings.txt")
+
+red="\033[0;31m"
+nc="\033[0m"
+
+clips = clippings.split("==========")
+
+index = Random.rand(clips.count)
+
+clips.each_with_index do |clip_txt, iter|
+  if iter == index
+    clip = clip_txt.gsub(/^\r\n/, '').split("\r\n")
+
+    puts "#{red}#{clip.first}:#{nc}\n\n#{clip.last}\n"
+  end
+end

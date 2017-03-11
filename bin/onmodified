@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -f
+
+function usage() {
+  echo "USAGE:\n\nonmodified GLOB CMD"
+}
+
+if [ -z $1 ]; then
+  usage
+  exit 1
+fi
+
+if [[ -z $2 ]]; then
+  usage
+  exit 1
+fi
+
+extension=$1
+command=$2
+directory="."
+
+while sleep 1; do find $directory -name $extension -newermt '1 second ago' -exec $command \; ; done
+

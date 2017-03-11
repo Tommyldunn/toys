@@ -3,6 +3,12 @@ function nonzero_return() {
   [ $RETVAL -ne 0 ] && echo " [$RETVAL] "
 }
 
+export HISTFILESIZE=
+export HISTSIZE=
+export HISTTIMEFORMAT="[%F %T] "
+export HISTFILE=~/.bash_eternal_history
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+
 export PATH="$HOME/.toys/bin:$PATH"
 
 export PS1="\n☺ \[\e[31m\]\H -> \[\e[33m\]\u\[\e[m\]\[\e[31m\] \[\e[m\]\[\e[31m\]\`nonzero_return\`\[\e[m\] \w \[\e[34m\]>\[\e[m\]\[\e[32m\]>\[\e[m\]\[\e[33m\]>\[\e[m\] "
@@ -16,8 +22,14 @@ if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
 fi
 
 source ~/.toys/config/bash/completions/ssh
-source ~/.toys/tools/notes/notes.bash_completion
 
 git config --global alias.graph 'log --graph --decorate'
 
 alias fixssh='export $(tmux showenv SSH_AUTH_SOCK)'
+
+rustpath=$(which rustc)
+if [ -z $rustpath ]; then
+  export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src/
+fi
+
+kindle_fortune
