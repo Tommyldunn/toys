@@ -1,6 +1,10 @@
 filetype off
-set nofoldenable
-let foldmethod='syntax'
+"set nofoldenable
+
+augroup vimrc
+  au BufReadPre * setlocal foldmethod=syntax
+  au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
+augroup END
 
 set path+=**
 set wildmenu
@@ -59,7 +63,11 @@ Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'majutsushi/tagbar'
 Plug 'timcharper/textile.vim'
 Plug 'mhartington/vim-angular2-snippets'
-Plug 'vim-scripts/vim-forrestgump'
+Plug '0x84/vim-coderunner'
+Plug 'sorah/presen.vim'
+Plug 'Shougo/unite.vim'
+Plug 'python-mode/python-mode'
+Plug 'julienr/vim-cellmode'
 
 " Background processing
 Plug 'Shougo/vimproc.vim'
@@ -84,12 +92,14 @@ endif
 Plug 'mhinz/vim-startify'
 Plug 'rhysd/vim-grammarous'
 Plug 'jreybert/vimagit'
+Plug 'rhysd/vim-crystal'
 
 call plug#end()
 
 au BufNewFile,BufRead *.note set filetype=outlaw
 
-let g:vimwiki_list = [{'path': '~/.notes/', 'path_html': '~/.notes/html/'}]
+let g:vimwiki_list = [{'path': '~/.notes/'}]
+let g:vimwiki_folding='list'
 
 let g:syntastic_disabled_filetypes=['html']
 
@@ -132,6 +142,12 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" Cursor line
+set cursorline
+highlight  CursorLine ctermbg=233 ctermfg=None cterm=None
+autocmd InsertEnter * highlight  CursorLine ctermbg=236 ctermfg=None cterm=None
+autocmd InsertLeave * highlight  CursorLine ctermbg=233 ctermfg=None cterm=None
 
 set ofu=syntaxcomplete#Complete
 
@@ -188,8 +204,6 @@ function! NumberToggle()
   endif
 endfunc
 
-let g:org_agenda_files = ['~/.notes/*.org']
-
 let mapleader = "\<Space>"
 nnoremap <Leader>o :CtrlPMixed<CR>
 nnoremap <Leader>w :w<CR>
@@ -200,7 +214,6 @@ nnoremap <Leader>j <C-w><Down><CR>
 nnoremap <Leader>l <C-w><Right><CR>
 nnoremap <Leader>h <C-w><Left><CR>
 nnoremap <Leader>b :b #<CR>
-nnoremap <Leader>f :NERDTreeFind<CR>
 nnoremap <Leader>t :tabnew<CR>
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>Q :q!<CR>
@@ -230,6 +243,18 @@ hi Normal                    ctermfg=254 ctermbg=234
 hi LineNr                    ctermfg=242 ctermbg=233
 hi VertSplit                 ctermfg=233 ctermbg=233 cterm=NONE
 hi Folded ctermfg=248 ctermbg=236
+hi Search cterm=NONE ctermbg=94
+hi Visual cterm=NONE ctermbg=0 ctermfg=NONE
+
+let g:syntastic_error_symbol = "✖"
+let g:syntastic_warning_symbol = "◆"
+let g:syntastic_mode_map = { 'passive_filetypes': ['html'] }
 
 " leader+m for a quick edit of a macro
 nnoremap <leader>m  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
+
+let g:cellmode_tmux_sessionname=''  " Will try to automatically pickup tmux session
+let g:cellmode_tmux_windowname='vim-ipython'
+let g:cellmode_tmux_panenumber='1'
+
+let g:pymode_breakpoint_bind = '<leader>d'

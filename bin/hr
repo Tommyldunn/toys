@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+for (( i=1; i <= `tput cols`; i++ )); do   echo -n "="; done

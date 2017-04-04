@@ -11,9 +11,10 @@ BEGIN {
   nc="\033[0m"
 }
 
-!/(--|Binary|binarny)/ { 
+!/(--|Binary|binarny)/ {
   if($1 != file && $1 != "")
-  { file=$1
+  { gsub("#FOUND#|#!FOUND#", "", $1)
+    file=$1
     print "\n" red $1 ":" nc
     ln=$2
     filestarted=0
