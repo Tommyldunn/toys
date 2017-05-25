@@ -1,18 +1,30 @@
 filetype off
 "set nofoldenable
 
+" Indentation
 augroup vimrc
   au BufReadPre * setlocal foldmethod=syntax
   au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
 augroup END
 
+" Getting basic fuzzy finding in place for :e and :f
 set path+=**
 set wildmenu
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'ctrlpvim/ctrlp.vim'
+" Fuzzy File Opening
+if executable('fzy')
+  Plug 'srstevenson/vim-picker'
+else
+  Plug 'ctrlpvim/ctrlp.vim'
+endif
+
+" Surround.vim is all about surroundings: parentheses, brackets,
+" quotes, XML tags, and more. The plugin provides mappings
+" to easily delete, change and add such surroundings in pairs.
 Plug 'tpope/vim-surround'
+
 Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
@@ -44,7 +56,17 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'thinca/vim-quickrun'
 Plug 'terryma/vim-expand-region'
 Plug 'haya14busa/incsearch.vim'
-Plug 'Shougo/neocomplete.vim'
+Plug 'elixir-lang/vim-elixir'
+Plug 'JuliaEditorSupport/julia-vim'
+Plug 'jgdavey/tslime.vim'
+Plug 'altercation/vim-colors-solarized'
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim'
+else
+  Plug 'Shougo/neocomplete.vim'
+endif
+
 Plug 'honza/vim-snippets'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
@@ -63,9 +85,6 @@ Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'majutsushi/tagbar'
 Plug 'timcharper/textile.vim'
 Plug 'mhartington/vim-angular2-snippets'
-Plug '0x84/vim-coderunner'
-Plug 'sorah/presen.vim'
-Plug 'Shougo/unite.vim'
 Plug 'python-mode/python-mode'
 Plug 'julienr/vim-cellmode'
 
@@ -159,13 +178,12 @@ endfunction
 let g:distraction_free_defined = 1
 command DistractionFree call DistractionFreeWriting()
 
-let g:limelight_conceal_ctermfg = 'DarkGray'
+" let g:limelight_conceal_ctermfg = 'DarkGray'
 
 filetype plugin indent on
 set number
 set nu ts=2 sw=2 et shiftround ignorecase smartcase
 syntax enable
-set background=dark
 
 highlight LineNr ctermfg=grey
 highlight LineNr ctermbg=black
@@ -181,10 +199,11 @@ let g:lightline = {
       \ 'subseparator': { 'left': '|', 'right': '|' }
       \ }
 
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+let g:ctrlp_working_path_mode = 'wa'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 if !has('gui_running')
@@ -205,7 +224,8 @@ function! NumberToggle()
 endfunc
 
 let mapleader = "\<Space>"
-nnoremap <Leader>o :CtrlPMixed<CR>
+nnoremap <Leader>o :PickerEdit<CR>
+nnoremap <Leader>t :PickerTag<CR>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>- :sp<CR>
 nnoremap <Leader>\ :vsp<CR>
@@ -214,9 +234,9 @@ nnoremap <Leader>j <C-w><Down><CR>
 nnoremap <Leader>l <C-w><Right><CR>
 nnoremap <Leader>h <C-w><Left><CR>
 nnoremap <Leader>b :b #<CR>
-nnoremap <Leader>t :tabnew<CR>
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>Q :q!<CR>
+vmap <Leader>t <Plug>SendSelectionToTmux
 nmap <Leader><Leader> V
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
@@ -224,6 +244,8 @@ inoremap jj <Esc>
 nnoremap ff :noh <CR>
 nnoremap \\ :Limelight!! <CR>
 nnoremap <Leader>n :call NumberToggle()<cr>
+map <Leader>] <Plug>(expand_region_expand)
+map <Leader>[ <Plug>(expand_region_shrink)
 
 autocmd filetype markdown call AutoCorrect()
 autocmd filetype wiki call AutoCorrect()
@@ -244,17 +266,20 @@ hi LineNr                    ctermfg=242 ctermbg=233
 hi VertSplit                 ctermfg=233 ctermbg=233 cterm=NONE
 hi Folded ctermfg=248 ctermbg=236
 hi Search cterm=NONE ctermbg=94
-hi Visual cterm=NONE ctermbg=0 ctermfg=NONE
+hi Visual cterm=NONE ctermbg=236 ctermfg=NONE
 
+" Syntastic
 let g:syntastic_error_symbol = "✖"
 let g:syntastic_warning_symbol = "◆"
 let g:syntastic_mode_map = { 'passive_filetypes': ['html'] }
-
-" leader+m for a quick edit of a macro
-nnoremap <leader>m  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
 
 let g:cellmode_tmux_sessionname=''  " Will try to automatically pickup tmux session
 let g:cellmode_tmux_windowname='vim-ipython'
 let g:cellmode_tmux_panenumber='1'
 
 let g:pymode_breakpoint_bind = '<leader>d'
+
+let g:ctrlp_max_files = 1000000
+let g:ctrlp_max_depth = 400
+
+let g:default_julia_version = "0.6"
